@@ -82,6 +82,7 @@ function main_menu() {
                 echo "无效的选项"
                 ;;
         esac
+        read -p "按任意键返回主菜单..."
     done
 }
 
