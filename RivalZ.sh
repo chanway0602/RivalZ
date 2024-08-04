@@ -52,7 +52,6 @@ function install_all() {
     npm i -g rivalz-node-cli
 
     echo "依赖和 RivalZ 节点安装完成。"
-    read -p "安装完成，按任意键返回主菜单..."
 }
 
 # 打开新屏幕
