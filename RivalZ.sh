@@ -55,7 +55,7 @@ function install_all() {
     read -p "安装完成，按任意键返回主菜单..."
 }
 
-# 启动 Rivalz 并打开新屏幕
+# 打开新屏幕
 function start_rivalz() {
     echo "打开新屏幕..."
     screen -S rivalz
