@@ -18,6 +18,10 @@ function install_all() {
     echo "安装 screen..."
     sudo apt install -y screen
 
+    # 安装 npm
+    echo "安装 npm..."
+    sudo apt install -y npm
+
     # 检查 Git、curl 和 screen 安装情况
     if git --version &>/dev/null; then
         echo "Git 安装成功!"
@@ -35,6 +39,12 @@ function install_all() {
         echo "screen 安装成功!"
     else
         echo "screen 安装失败，请检查错误信息。"
+    fi
+
+    if npm --version &>/dev/null; then
+        echo "npm 安装成功!"
+    else
+        echo "npm 安装失败，请检查错误信息。"
     fi
 
     # 安装 Rivalz
@@ -84,6 +94,9 @@ function main_menu() {
                 echo "无效的选项"
                 ;;
         esac
+
+        # 添加提示用户按任意键返回主菜单
+        read -p "按任意键返回主菜单..."
     done
 }
 
