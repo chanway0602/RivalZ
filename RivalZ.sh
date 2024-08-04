@@ -49,6 +49,7 @@ function start_rivalz() {
     echo "打开新屏幕..."
     screen -S rivalz
     echo "新屏幕已打开。"
+    read -p "按任意键返回主菜单..."
 }
 
 # 主菜单函数
@@ -63,7 +64,7 @@ function main_menu() {
         echo "退出脚本，请按键盘 ctrl + C 退出即可"
         echo "请选择要执行的操作:"
         echo "1) 安装RivalZ节点"
-        echo "2) 启动 RivalZ 并打开新屏幕"
+        echo "2) 打开新屏幕（在这启动节点）"
         echo "0) 退出"
         read -p "输入选项 (0-2): " choice
 
@@ -82,7 +83,6 @@ function main_menu() {
                 echo "无效的选项"
                 ;;
         esac
-        read -p "按任意键返回主菜单..."
     done
 }
 
