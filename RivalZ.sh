@@ -75,7 +75,7 @@ function main_menu() {
         echo "退出脚本，请按键盘 ctrl + C 退出即可"
         echo "请选择要执行的操作:"
         echo "1) 安装RivalZ节点"
-        echo "2) 启动 RivalZ 并打开新屏幕"
+        echo "2) 打开新屏幕"
         echo "0) 退出"
         read -p "输入选项 (0-2): " choice
 
