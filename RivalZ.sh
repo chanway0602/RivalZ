@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# 安装 Git 和 curl 函数
-function install_dependencies() {
+# 安装依赖和 RivalZ 函数
+function install_all() {
     # 更新包列表
     echo "更新包列表..."
     sudo apt update
@@ -36,19 +36,19 @@ function install_dependencies() {
     else
         echo "screen 安装失败，请检查错误信息。"
     fi
-}
 
-# 安装 Rivalz 函数
-function install_rivalz() {
     # 安装 Rivalz
     echo "安装 Rivalz..."
     npm i -g rivalz-node-cli
 
-    # 启动 Rivalz 并打开新屏幕
-    echo "打开新屏幕并执行 Rivalz 命令..."
-    screen -S rivalz -dm bash -c "rivalz update-version; rivalz run"
+    echo "依赖和 RivalZ 节点安装完成。"
+}
 
-    echo "脚本执行完成。"
+# 启动 Rivalz 并打开新屏幕
+function start_rivalz() {
+    echo "打开新屏幕..."
+    screen -S rivalz
+    echo "新屏幕已打开。"
 }
 
 # 主菜单函数
@@ -63,13 +63,16 @@ function main_menu() {
         echo "退出脚本，请按键盘 ctrl + C 退出即可"
         echo "请选择要执行的操作:"
         echo "1) 安装RivalZ节点"
+        echo "2) 启动 RivalZ 并打开新屏幕"
         echo "0) 退出"
-        read -p "输入选项 (0-1): " choice
+        read -p "输入选项 (0-2): " choice
 
         case $choice in
             1)
-                install_dependencies
-                install_rivalz
+                install_all
+                ;;
+            2)
+                start_rivalz
                 ;;
             0)
                 echo "退出脚本..."
