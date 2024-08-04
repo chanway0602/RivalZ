@@ -1,14 +1,7 @@
 #!/bin/bash
 
-# 检查是否以root用户运行脚本
-if [ "$(id -u)" != "0" ]; then
-    echo "此脚本需要以root用户权限运行。"
-    echo "请尝试使用 'sudo -i' 命令切换到root用户，然后再次运行此脚本。"
-    exit 1
-fi
-
-# 安装 Node.js 和 Rivalz 函数
-function install_node() {
+# 安装 Git 和 curl 函数
+function install_dependencies() {
     # 更新包列表
     echo "更新包列表..."
     sudo apt update
@@ -43,34 +36,10 @@ function install_node() {
     else
         echo "screen 安装失败，请检查错误信息。"
     fi
+}
 
-    # 检查 Node.js 版本
-    echo "检查 Node.js 版本..."
-    node_version=$(node -v 2>/dev/null)
-    nodejs_version=$(nodejs -v 2>/dev/null)
-
-    if [[ $node_version == v20.* ]] || [[ $node_version == v2[1-9].* ]] || [[ $node_version == v[3-9][0-9].* ]]; then
-        echo "Node.js 版本是 20.x 或更高版本，当前版本：$node_version"
-    else
-        echo "Node.js 版本低于 20.x，正在安装 Node.js 20.x..."
-        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-        sudo apt install -y nodejs
-    fi
-
-    # 检查 Node.js 安装情况
-    if node -v &>/dev/null; then
-        echo "Node.js 安装成功，当前版本：$(node -v)"
-    else
-        echo "Node.js 安装失败，请检查错误信息。"
-    fi
-
-    # 检查 nodejs 版本
-    if nodejs -v &>/dev/null; then
-        echo "nodejs 安装成功，当前版本：$(nodejs -v)"
-    else
-        echo "nodejs 安装失败，请检查错误信息。"
-    fi
-
+# 安装 Rivalz 函数
+function install_rivalz() {
     # 安装 Rivalz
     echo "安装 Rivalz..."
     npm i -g rivalz-node-cli
@@ -99,7 +68,8 @@ function main_menu() {
 
         case $choice in
             1)
-                install_node
+                install_dependencies
+                install_rivalz
                 ;;
             0)
                 echo "退出脚本..."
