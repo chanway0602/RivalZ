@@ -2,9 +2,9 @@
 
 # 安装依赖和 RivalZ 函数
 function install_all() {
-    # 更新包列表
-    echo "更新包列表..."
-    sudo apt update
+    # 更新包列表和升级系统
+    echo "更新包列表和升级系统..."
+    sudo apt update && sudo apt upgrade -y
 
     # 安装 Git
     echo "安装 Git..."
