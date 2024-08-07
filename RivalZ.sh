@@ -62,6 +62,18 @@ function start_rivalz() {
     read -p "按任意键返回主菜单..."
 }
 
+# 删除 Rivalz
+function remove_rivalz() {
+    echo "删除 Rivalz..."
+    if [ -f /usr/bin/rivalz ]; then
+        sudo rm /usr/bin/rivalz
+        echo "Rivalz 已删除。"
+    else
+        echo "Rivalz 不存在，无法删除。"
+    fi
+    read -p "按任意键返回主菜单..."
+}
+
 # 主菜单函数
 function main_menu() {
     while true; do
@@ -75,6 +87,7 @@ function main_menu() {
         echo "请选择要执行的操作:"
         echo "1) 安装RivalZ节点"
         echo "2) 打开新屏幕"
+        echo "3) 删除 Rivalz"
         echo "0) 退出"
         read -p "输入选项 (0-2): " choice
 
@@ -84,6 +97,9 @@ function main_menu() {
                 ;;
             2)
                 start_rivalz
+                ;;
+            3)
+                remove_rivalz
                 ;;
             0)
                 echo "退出脚本..."
