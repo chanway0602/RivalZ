@@ -66,6 +66,7 @@ function start_rivalz() {
 function remove_rivalz() {
     echo "删除 Rivalz..."
     if [ -f /usr/bin/rivalz ]; then
+        echo "找到 Rivalz，正在删除..."
         sudo rm /usr/bin/rivalz
         echo "Rivalz 已删除。"
     else
@@ -89,7 +90,7 @@ function main_menu() {
         echo "2) 打开新屏幕"
         echo "3) 删除 Rivalz"
         echo "0) 退出"
-        read -p "输入选项 (0-2): " choice
+        read -p "输入选项 (0-3): " choice
 
         case $choice in
             1)
@@ -106,7 +107,7 @@ function main_menu() {
                 exit 0
                 ;;
             *)
-                echo "无效的选项"
+                echo "无效的选项，请重新输入。"
                 ;;
         esac
 
