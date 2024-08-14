@@ -53,8 +53,19 @@ function remove_rivalz() {
     else
         echo "Rivalz 不存在，无法删除。"
     fi
+
+    # 删除 /root/.rivalz 文件夹
+    if [ -d /root/.rivalz ]; then
+        echo "找到 /root/.rivalz 文件夹，正在删除..."
+        sudo rm -rf /root/.rivalz
+        echo "/root/.rivalz 文件夹已删除。"
+    else
+        echo "/root/.rivalz 文件夹不存在。"
+    fi
+
     read -p "按任意键返回主菜单..."
 }
+
 
 # 更新版本
 function update_version() {
