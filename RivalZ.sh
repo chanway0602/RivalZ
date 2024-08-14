@@ -40,7 +40,6 @@ function start_rivalz() {
     echo "打开新屏幕..."
     screen -S rivalz -d -m
     echo "新屏幕已打开。"
-    read -p "按任意键返回主菜单..."
 }
 
 # 删除 Rivalz
@@ -62,10 +61,7 @@ function remove_rivalz() {
     else
         echo "/root/.rivalz 文件夹不存在。"
     fi
-
-    read -p "按任意键返回主菜单..."
 }
-
 
 # 更新版本
 function update_version() {
@@ -73,7 +69,6 @@ function update_version() {
     rivalz update-version
     rivalz run
     echo "版本更新完成。"
-    read -p "按任意键返回主菜单..."
 }
 
 # 主菜单函数
