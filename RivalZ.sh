@@ -35,11 +35,11 @@ function install_all() {
     echo "依赖和 RivalZ 节点安装完成。"
 }
 
-# 打开新屏幕
+# 打开新屏幕并运行 RivalZ
 function start_rivalz() {
-    echo "打开新屏幕..."
-    screen -S rivalz -d -m
-    echo "新屏幕已打开。"
+    echo "打开新屏幕并启动 RivalZ..."
+    screen -S rivalz -d -m bash -c "rivalz run"
+    echo "新屏幕已打开并启动 RivalZ。"
 }
 
 # 删除 Rivalz
