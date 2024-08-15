@@ -35,13 +35,6 @@ function install_all() {
     echo "依赖和 RivalZ 节点安装完成。"
 }
 
-# 打开新屏幕并运行 RivalZ
-function start_rivalz() {
-    echo "打开新屏幕并启动 RivalZ..."
-    screen -S rivalz -d -m bash -c "rivalz run"
-    echo "新屏幕已打开并启动 RivalZ。"
-}
-
 # 删除 Rivalz
 function remove_rivalz() {
     echo "删除 Rivalz..."
@@ -67,7 +60,6 @@ function remove_rivalz() {
 function update_version() {
     echo "更新 Rivalz 版本..."
     rivalz update-version
-    rivalz run
     echo "版本更新完成。"
 }
 
@@ -83,9 +75,8 @@ function main_menu() {
         echo "退出脚本，请按键盘 ctrl + C 退出即可"
         echo "请选择要执行的操作:"
         echo "1) 安装RivalZ节点"
-        echo "2) 打开新屏幕"
-        echo "3) 删除 Rivalz"
-        echo "4) 更新版本"
+        echo "2) 删除 Rivalz"
+        echo "3) 更新版本"
         echo "0) 退出"
         read -p "输入选项 (0-4): " choice
 
@@ -94,12 +85,9 @@ function main_menu() {
                 install_all
                 ;;
             2)
-                start_rivalz
-                ;;
-            3)
                 remove_rivalz
                 ;;
-            4)
+            3)
                 update_version
                 ;;
             0)
