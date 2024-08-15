@@ -38,9 +38,9 @@ function install_all() {
 # 删除 Rivalz
 function remove_rivalz() {
     echo "删除 Rivalz..."
-    if [ -f /usr/bin/rivalz ]; then
+    if command -v rivalz &>/dev/null; then
         echo "找到 Rivalz，正在删除..."
-        sudo rm /usr/bin/rivalz
+        sudo rm $(which rivalz)
         echo "Rivalz 已删除。"
     else
         echo "Rivalz 不存在，无法删除。"
@@ -59,8 +59,29 @@ function remove_rivalz() {
 # 更新版本
 function update_version() {
     echo "更新 Rivalz 版本..."
-    rivalz update-version
-    echo "版本更新完成。"
+    if rivalz update-version; then
+        rivalz run
+        echo "版本更新完成。"
+    else
+        echo "版本更新失败，请检查错误信息。"
+    fi
+}
+
+# 错误修复重新运行
+function fix_and_restart() {
+    echo "执行硬件配置更改..."
+    rivalz change-hardware-config
+    echo "请重新配置硬盘容量，完成后按任意键继续..."
+    read -n 1 -s
+
+    echo "执行钱包配置更改..."
+    rivalz change-wallet
+    echo "请重新配置钱包地址，完成后按任意键继续..."
+    read -n 1 -s
+
+    echo "运行 Rivalz..."
+    rivalz run
+    echo "操作完成。"
 }
 
 # 主菜单函数
@@ -77,6 +98,7 @@ function main_menu() {
         echo "1) 安装RivalZ节点"
         echo "2) 删除 Rivalz"
         echo "3) 更新版本"
+        echo "4) 错误修复重新运行（请打开新的屏幕进行）"
         echo "0) 退出"
         read -p "输入选项 (0-4): " choice
 
@@ -90,6 +112,9 @@ function main_menu() {
             3)
                 update_version
                 ;;
+            4)
+                fix_and_restart
+                ;;
             0)
                 echo "退出脚本..."
                 exit 0
@@ -100,7 +125,7 @@ function main_menu() {
         esac
 
         # 添加提示用户按任意键返回主菜单
-        read -p "按任意键返回主菜单..."
+        read -p "操作完成，按任意键返回主菜单..."
     done
 }
 
