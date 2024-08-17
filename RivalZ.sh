@@ -65,8 +65,16 @@ function remove_rivalz() {
     else
         echo "/root/.nvm/versions/node/v20.0.0/bin/rivalz 文件不存在。"
     fi
-}
 
+    # 删除 /root/.npm/rivalz-node-cli 目录
+    if [ -d /root/.npm/rivalz-node-cli ]; then
+        echo "找到 /root/.npm/rivalz-node-cli 目录，正在删除..."
+        sudo rm -rf /root/.npm/rivalz-node-cli
+        echo "/root/.npm/rivalz-node-cli 目录已删除。"
+    else
+        echo "/root/.npm/rivalz-node-cli 目录不存在。"
+    fi
+}
 
 # 更新版本
 function update_version() {
