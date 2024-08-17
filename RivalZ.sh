@@ -38,6 +38,8 @@ function install_all() {
 # 删除 Rivalz
 function remove_rivalz() {
     echo "删除 Rivalz..."
+    
+    # 检查并删除 rivalz 命令
     if command -v rivalz &>/dev/null; then
         echo "找到 Rivalz，正在删除..."
         sudo rm $(which rivalz)
@@ -54,7 +56,17 @@ function remove_rivalz() {
     else
         echo "/root/.rivalz 文件夹不存在。"
     fi
+
+    # 删除 /root/.nvm/versions/node/v20.0.0/bin/rivalz 文件
+    if [ -f /root/.nvm/versions/node/v20.0.0/bin/rivalz ]; then
+        echo "找到 /root/.nvm/versions/node/v20.0.0/bin/rivalz 文件，正在删除..."
+        sudo rm /root/.nvm/versions/node/v20.0.0/bin/rivalz
+        echo "/root/.nvm/versions/node/v20.0.0/bin/rivalz 文件已删除。"
+    else
+        echo "/root/.nvm/versions/node/v20.0.0/bin/rivalz 文件不存在。"
+    fi
 }
+
 
 # 更新版本
 function update_version() {
