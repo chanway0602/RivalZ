@@ -2,9 +2,11 @@
 
 # 安装依赖和 RivalZ 函数
 function install_all() {
+    # 更新包列表和升级系统
     echo "更新包列表和升级系统..."
     sudo apt update && sudo apt upgrade -y
 
+    # 安装 Git、curl、screen 和 npm
     for pkg in git curl screen npm; do
         echo "安装 $pkg..."
         sudo apt install -y $pkg
@@ -16,6 +18,7 @@ function install_all() {
         fi
     done
 
+    # 安装 Rivalz
     echo "安装 Rivalz..."
     if npm list -g rivalz-node-cli &>/dev/null; then
         echo "Rivalz 已经安装。"
@@ -35,7 +38,8 @@ function install_all() {
 # 删除 Rivalz
 function remove_rivalz() {
     echo "删除 Rivalz..."
-
+    
+    # 检查并删除 rivalz 命令
     if command -v rivalz &>/dev/null; then
         echo "找到 Rivalz，正在删除..."
         sudo rm $(which rivalz)
@@ -44,6 +48,7 @@ function remove_rivalz() {
         echo "Rivalz 不存在，无法删除。"
     fi
 
+    # 删除 /root/.rivalz 文件夹
     if [ -d /root/.rivalz ]; then
         echo "找到 /root/.rivalz 文件夹，正在删除..."
         sudo rm -rf /root/.rivalz
@@ -52,6 +57,7 @@ function remove_rivalz() {
         echo "/root/.rivalz 文件夹不存在。"
     fi
 
+    # 删除 /root/.nvm/versions/node/v20.0.0/bin/rivalz 文件
     if [ -f /root/.nvm/versions/node/v20.0.0/bin/rivalz ]; then
         echo "找到 /root/.nvm/versions/node/v20.0.0/bin/rivalz 文件，正在删除..."
         sudo rm /root/.nvm/versions/node/v20.0.0/bin/rivalz
@@ -60,6 +66,7 @@ function remove_rivalz() {
         echo "/root/.nvm/versions/node/v20.0.0/bin/rivalz 文件不存在。"
     fi
 
+    # 删除 /root/.npm/rivalz-node-cli 目录
     if [ -d /root/.npm/rivalz-node-cli ]; then
         echo "找到 /root/.npm/rivalz-node-cli 目录，正在删除..."
         sudo rm -rf /root/.npm/rivalz-node-cli
@@ -97,19 +104,6 @@ function fix_and_restart() {
     echo "操作完成。"
 }
 
-# 在新的 screen 会话中执行 update-version 和 run
-function screen_rivalz() {
-    echo "创建并进入新的 screen 会话..."
-    screen -S rivalz -dm
-
-    echo "在 screen 会话中执行 Rivalz 命令..."
-    screen -S rivalz -p 0 -X stuff "rivalz update-version\n"
-    screen -S rivalz -p 0 -X stuff "rivalz run\n"
-
-    echo "请手动在 screen 会话中完成配置。完成后按任意键返回主菜单..."
-    read -n 1 -s
-}
-
 # 主菜单函数
 function main_menu() {
     while true; do
@@ -122,27 +116,23 @@ function main_menu() {
         echo "退出脚本，请按键盘 ctrl + C 退出即可"
         echo "请选择要执行的操作:"
         echo "1) 安装RivalZ节点"
-        echo "2) 新建Rivalz屏幕"
-        echo "3) 删除 Rivalz"
-        echo "4) 更新版本"
-        echo "5) 错误修复重新运行（请打开新的屏幕进行）"
+        echo "2) 删除 Rivalz"
+        echo "3) 更新版本"
+        echo "4) 错误修复重新运行（请打开新的屏幕进行）"
         echo "0) 退出"
-        read -p "输入选项 (0-5): " choice
+        read -p "输入选项 (0-4): " choice
 
         case $choice in
             1)
                 install_all
                 ;;
             2)
-                screen_rivalz
-                ;;
-            3)
                 remove_rivalz
                 ;;
-            4)
+            3)
                 update_version
                 ;;
-            5)
+            4)
                 fix_and_restart
                 ;;
             0)
@@ -154,6 +144,7 @@ function main_menu() {
                 ;;
         esac
 
+        # 添加提示用户按任意键返回主菜单
         read -p "操作完成，按任意键返回主菜单..."
     done
 }
