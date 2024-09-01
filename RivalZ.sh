@@ -6,8 +6,22 @@ function install_all() {
     echo "更新包列表和升级系统..."
     sudo apt update && sudo apt upgrade -y
 
-    # 安装 Git、curl、screen 和 npm
-    for pkg in git curl screen npm; do
+    # 删除现有的 Node.js 和 npm 安装
+    echo "删除现有的 Node.js 和 npm 安装..."
+    sudo apt-get remove --purge -y nodejs npm
+    sudo apt-get autoremove -y
+    sudo apt-get autoclean -y
+
+    # 尝试修复任何破损的包
+    echo "修复破损包..."
+    sudo apt --fix-broken install -y
+
+    # 清理任何残留的包信息
+    echo "清理包缓存..."
+    sudo apt clean
+
+    # 安装 Git、curl 和 screen
+    for pkg in git curl screen; do
         echo "安装 $pkg..."
         sudo apt install -y $pkg
         if command -v $pkg &>/dev/null; then
@@ -17,6 +31,19 @@ function install_all() {
             exit 1
         fi
     done
+
+    # 安装 Node.js 和 npm
+    echo "安装 Node.js 和 npm..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    sudo apt install -y nodejs
+
+    # 验证 Node.js 和 npm 是否安装成功
+    if command -v node &>/dev/null && command -v npm &>/dev/null; then
+        echo "Node.js 和 npm 安装成功!"
+    else
+        echo "Node.js 或 npm 安装失败，请检查错误信息。"
+        exit 1
+    fi
 
     # 安装 Rivalz
     echo "安装 Rivalz..."
@@ -32,7 +59,16 @@ function install_all() {
         fi
     fi
 
-    echo "依赖和 RivalZ 节点安装完成。"
+    echo "依赖和 Rivalz 节点安装完成。"
+
+    # 创建 screen 会话并运行 rivalz
+    echo "创建 screen 会话并运行 Rivalz..."
+    screen -dmS rivalz bash -c "rivalz run; exec bash"
+
+    # 提示用户进入 screen 会话并监控进程
+    echo "Rivalz 正在 screen 会话中运行。"
+    echo "请使用 'screen -r rivalz' 命令进入 screen 会话，完成相关设置后，按任意键返回主菜单..."
+    read -n 1 -s
 }
 
 # 删除 Rivalz
