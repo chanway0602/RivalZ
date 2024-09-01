@@ -112,17 +112,6 @@ function remove_rivalz() {
     fi
 }
 
-# 更新版本
-function update_version() {
-    echo "更新 Rivalz 版本..."
-    if rivalz update-version; then
-        rivalz run
-        echo "版本更新完成。"
-    else
-        echo "版本更新失败，请检查错误信息。"
-    fi
-}
-
 # 错误修复重新运行
 function fix_and_restart() {
     echo "执行硬件配置更改..."
@@ -153,10 +142,9 @@ function main_menu() {
         echo "请选择要执行的操作:"
         echo "1) 安装RivalZ节点"
         echo "2) 删除 Rivalz"
-        echo "3) 更新版本"
-        echo "4) 错误修复重新运行（请打开新的屏幕进行）"
+        echo "3) 错误修复重新运行（请打开新的屏幕进行）"
         echo "0) 退出"
-        read -p "输入选项 (0-4): " choice
+        read -p "输入选项 (0-3): " choice
 
         case $choice in
             1)
@@ -166,9 +154,6 @@ function main_menu() {
                 remove_rivalz
                 ;;
             3)
-                update_version
-                ;;
-            4)
                 fix_and_restart
                 ;;
             0)
