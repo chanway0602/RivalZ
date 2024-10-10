@@ -6,12 +6,6 @@ function install_all() {
     echo "更新包列表和升级系统..."
     sudo apt update && sudo apt upgrade -y
 
-    # 删除现有的 Node.js 和 npm 安装
-    echo "删除现有的 Node.js 和 npm 安装..."
-    sudo apt-get remove --purge -y nodejs npm
-    sudo apt-get autoremove -y
-    sudo apt-get autoclean -y
-
     # 尝试修复任何破损的包
     echo "修复破损包..."
     sudo apt --fix-broken install -y
@@ -33,7 +27,8 @@ function install_all() {
     done
 
     # 安装 Node.js 和 npm
-    echo "安装 Node.js 和 npm..."
+    if ! command -v node &>/dev/null || ! command -v npm &>/dev/null; then
+    echo "Node.js 和 npm 未安装，正在安装..."
     curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
     sudo apt install -y nodejs
 
@@ -43,6 +38,11 @@ function install_all() {
     else
         echo "Node.js 或 npm 安装失败，请检查错误信息。"
         exit 1
+    fi
+    else
+    echo "Node.js 和 npm 已安装，版本为:"
+    node -v
+    npm -v
     fi
 
     # 安装 Rivalz
