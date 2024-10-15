@@ -88,6 +88,7 @@ function remove_rivalz() {
     if [ -d /root/.rivalz ]; then
         echo "找到 /root/.rivalz 文件夹，正在删除..."
         sudo rm -rf /root/.rivalz
+        sudo rm -rf /usr/lib/node_modules/rivalz-node-cli
         echo "/root/.rivalz 文件夹已删除。"
     else
         echo "/root/.rivalz 文件夹不存在。"
