@@ -88,12 +88,20 @@ function remove_rivalz() {
     if [ -d /root/.rivalz ]; then
         echo "找到 /root/.rivalz 文件夹，正在删除..."
         sudo rm -rf /root/.rivalz
-        sudo rm -rf /usr/lib/node_modules/rivalz-node-cli
         echo "/root/.rivalz 文件夹已删除。"
     else
         echo "/root/.rivalz 文件夹不存在。"
     fi
 
+    # 删除 /root/.npm/rivalz-node-cli 目录
+    if [ -d /root/.npm/rivalz-node-cli ]; then
+        echo "找到 /root/.npm/rivalz-node-cli 目录，正在删除..."
+        sudo rm -rf /root/.npm/rivalz-node-cli
+        echo "/root/.npm/rivalz-node-cli 目录已删除。"
+    else
+        echo "/root/.npm/rivalz-node-cli 目录不存在。"
+    fi
+    
     # 删除 /root/.nvm/versions/node/v20.0.0/bin/rivalz 文件
     if [ -f /root/.nvm/versions/node/v20.0.0/bin/rivalz ]; then
         echo "找到 /root/.nvm/versions/node/v20.0.0/bin/rivalz 文件，正在删除..."
