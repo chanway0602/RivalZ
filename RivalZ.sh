@@ -93,6 +93,15 @@ function remove_rivalz() {
         echo "/root/.rivalz 文件夹不存在。"
     fi
 
+    # 删除 /usr/bin/rivalz 文件夹
+    if [ -d /usr/bin/rivalz ]; then
+        echo "找到 /usr/bin/rivalz 文件夹，正在删除..."
+        sudo rm -rf /usr/bin/rivalz
+        echo "/usr/bin/rivalz 文件夹已删除。"
+    else
+        echo "/usr/bin/rivalz 文件夹不存在。"
+    fi
+
     # 删除 /root/.npm/rivalz-node-cli 目录
     if [ -d /root/.npm/rivalz-node-cli ]; then
         echo "找到 /root/.npm/rivalz-node-cli 目录，正在删除..."
