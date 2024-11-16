@@ -71,6 +71,16 @@ function install_all() {
     read -n 1 -s
 }
 
+function restart() {
+    screen -S rivalz -X quit 
+    sleep 1
+
+    # 创建 screen 会话并运行 rivalz
+    echo "创建 screen 会话并运行 Rivalz..."
+    screen -dmS rivalz bash -c "rivalz run; exec bash"
+
+}
+
 # 删除 Rivalz
 function remove_rivalz() {
     echo "删除 Rivalz..."
@@ -161,6 +171,7 @@ function main_menu() {
         echo "1) 安装RivalZ节点"
         echo "2) 删除 Rivalz"
         echo "3) 错误修复重新运行（请打开新的屏幕进行）"
+        echo "4) 重启 Rivalz"
         echo "0) 退出"
         read -p "输入选项 (0-3): " choice
 
@@ -174,6 +185,11 @@ function main_menu() {
             3)
                 fix_and_restart
                 ;;
+
+            4)
+                restart
+                ;;
+
             0)
                 echo "退出脚本..."
                 exit 0
